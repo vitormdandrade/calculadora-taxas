@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  @apply bg-paper text-ink font-body antialiased;
+}
+
+::selection {
+  @apply bg-brand-200 text-brand-950;
+}
+
+/* Receipt-style dashed rule used in the results panel */
+.rule-dashed {
+  background-image: linear-gradient(
+    to right,
+    currentColor 0 6px,
+    transparent 6px 12px
+  );
+  background-size: 12px 1px;
+  background-repeat: repeat-x;
+  height: 1px;
+  opacity: 0.25;
+}
+
+/* Serrated receipt edge (zigzag teeth below the card) */
+.receipt-edge {
+  position: relative;
+}
+.receipt-edge::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -8px;
+  height: 8px;
+  background:
+    linear-gradient(-45deg, #ffffff 5.66px, transparent 0),
+    linear-gradient(45deg, #ffffff 5.66px, transparent 0);
+  background-size: 16px 16px;
+  background-position: 0 0, 8px 0;
+  background-repeat: repeat-x;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
