@@ -132,6 +132,21 @@ export default function RootLayout({
               </div>
               <div>
                 <h4 className="text-xs font-bold uppercase tracking-widest mb-4 text-brand-300">
+                  Legal
+                </h4>
+                <ul className="space-y-2.5 text-sm mb-8">
+                  <li>
+                    <a href="/termos" className="no-underline text-brand-100 hover:text-white transition-colors">
+                      Termos de Serviço
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/privacidade" className="no-underline text-brand-100 hover:text-white transition-colors">
+                      Política de Privacidade
+                    </a>
+                  </li>
+                </ul>
+                <h4 className="text-xs font-bold uppercase tracking-widest mb-4 text-brand-300">
                   Blogs e comparadores
                 </h4>
                 <ul className="space-y-2.5 text-sm">
@@ -155,9 +170,16 @@ export default function RootLayout({
             </div>
             <div className="mt-12 pt-6 border-t border-white/10 text-xs text-brand-200/60 space-y-2">
               <p>
-                Ferramentas educacionais — não constituem aconselhamento
-                jurídico ou financeiro. Confirme as informações nas fontes
-                oficiais.
+                O ResolveKit não é um escritório de advocacia nem de
+                contabilidade. Nossas ferramentas geram cálculos educacionais e
+                modelos de documentos — não constituem assessoria jurídica,
+                contábil ou financeira. Confirme as informações nas fontes
+                oficiais e, para casos complexos, consulte um profissional
+                habilitado. Veja os{" "}
+                <a href="/termos" className="underline underline-offset-2 text-brand-200 hover:text-white transition-colors">
+                  Termos de Serviço
+                </a>
+                .
               </p>
               <p>© 2026 ResolveKit. Todos os direitos reservados.</p>
             </div>

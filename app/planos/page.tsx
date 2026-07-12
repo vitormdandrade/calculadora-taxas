@@ -6,6 +6,7 @@ type Plan = "monthly" | "yearly";
 
 export default function PlanosPage() {
   const [loading, setLoading] = useState<Plan | null>(null);
+  const [accepted, setAccepted] = useState(false);
 
   async function subscribe(plan: Plan) {
     setLoading(plan);
@@ -42,7 +43,29 @@ export default function PlanosPage() {
 
       {/* Pricing cards */}
       <section className="max-w-4xl mx-auto px-5 sm:px-8 pb-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
+        <label className="flex items-start gap-3 mt-10 cursor-pointer select-none rounded-lg bg-slate-50 border border-slate-200 hover:border-slate-300 px-4 py-3.5 transition-colors max-w-2xl mx-auto">
+          <input
+            type="checkbox"
+            checked={accepted}
+            onChange={(e) => setAccepted(e.target.checked)}
+            className="mt-0.5 h-4 w-4 accent-teal-700 flex-shrink-0"
+          />
+          <span className="text-sm leading-relaxed text-slate-700">
+            Li e aceito os{" "}
+            <a
+              href="/termos"
+              target="_blank"
+              rel="noopener"
+              className="font-semibold text-brand-700 underline underline-offset-2 hover:text-brand-900"
+            >
+              Termos de Serviço
+            </a>
+            . Entendo que as ferramentas do ResolveKit geram modelos e não
+            constituem assessoria jurídica, contábil ou financeira.
+          </span>
+        </label>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
           {/* Monthly */}
           <div className="bg-white rounded-xl border border-brand-900/10 p-8 flex flex-col">
             <p className="text-sm font-semibold text-brand-600 uppercase tracking-wide">Mensal</p>
@@ -60,8 +83,8 @@ export default function PlanosPage() {
             </ul>
             <button
               onClick={() => subscribe("monthly")}
-              disabled={loading !== null}
-              className="mt-8 w-full rounded-lg bg-brand-950 text-white font-bold text-base py-3.5 hover:bg-brand-800 disabled:opacity-60 transition-colors cursor-pointer"
+              disabled={loading !== null || !accepted}
+              className="mt-8 w-full rounded-lg bg-brand-950 text-white font-bold text-base py-3.5 hover:bg-brand-800 disabled:opacity-60 disabled:cursor-not-allowed transition-colors cursor-pointer"
             >
               {loading === "monthly" ? "Redirecionando..." : "Assinar Mensal"}
             </button>
@@ -89,8 +112,8 @@ export default function PlanosPage() {
             </ul>
             <button
               onClick={() => subscribe("yearly")}
-              disabled={loading !== null}
-              className="mt-8 w-full rounded-lg bg-brand-400 text-brand-950 font-bold text-base py-3.5 hover:bg-brand-300 disabled:opacity-60 transition-colors cursor-pointer"
+              disabled={loading !== null || !accepted}
+              className="mt-8 w-full rounded-lg bg-brand-400 text-brand-950 font-bold text-base py-3.5 hover:bg-brand-300 disabled:opacity-60 disabled:cursor-not-allowed transition-colors cursor-pointer"
             >
               {loading === "yearly" ? "Redirecionando..." : "Assinar Anual"}
             </button>

@@ -10,6 +10,7 @@ import {
   type PlatformId,
 } from "@/lib/fees";
 import { parseBRLNumber } from "@/lib/csv";
+import LegalWarningBR from "@/components/LegalWarningBR";
 
 function MoneyInput({
   id,
@@ -300,6 +301,15 @@ export default function Calculator() {
             </div>
           )}
         </div>
+
+        {result ? (
+          <div className="mt-6">
+            <LegalWarningBR
+              value={Math.max(result.price, Math.abs(result.netProfit))}
+              label="transação"
+            />
+          </div>
+        ) : null}
 
         {result ? (
           <a

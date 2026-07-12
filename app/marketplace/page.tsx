@@ -1,5 +1,6 @@
 import Calculator from "@/components/Calculator";
 import CheckoutButton from "@/components/CheckoutButton";
+import DisclaimerBanner from "@/components/DisclaimerBanner";
 
 const PRO_FEATURES = [
   { title: "Cálculo em lote via CSV", desc: "Suba sua planilha com 100+ produtos e receba taxa, lucro e margem de todos de uma vez." },
@@ -41,6 +42,13 @@ export default function MarketplacePage() {
       </section>
 
       <section className="max-w-5xl mx-auto px-5 sm:px-8">
+        <div className="mb-8">
+          <DisclaimerBanner product="Calculadora de Taxas" variant="educational">
+            Calculadora de Taxas é uma ferramenta educacional. As taxas
+            exibidas são baseadas em informações públicas de Julho/2026 e podem
+            variar. Confirme os valores no portal oficial de cada marketplace.
+          </DisclaimerBanner>
+        </div>
         <Calculator />
       </section>
 
@@ -65,7 +73,10 @@ export default function MarketplacePage() {
               <div className="rounded-xl bg-white/[0.06] border border-white/10 p-6">
                 <p className="font-display text-5xl font-extrabold tabular-nums">R$39<span className="text-2xl">,90</span></p>
                 <p className="text-sm text-brand-100/70 mt-1 mb-6">Uma vez só. Sem mensalidade.</p>
-                <CheckoutButton className="w-full rounded-lg bg-brand-400 hover:bg-brand-300 disabled:opacity-60 text-brand-950 font-bold text-base py-3.5 transition-colors">
+                <CheckoutButton
+                  consentLabel="Entendo que o Modo Pro é uma ferramenta de cálculo e não substitui a consulta com um contador ou especialista em marketplaces."
+                  className="w-full rounded-lg bg-brand-400 hover:bg-brand-300 disabled:opacity-60 disabled:cursor-not-allowed text-brand-950 font-bold text-base py-3.5 transition-colors"
+                >
                   Liberar o Modo Pro
                 </CheckoutButton>
                 <p className="text-xs text-brand-100/50 mt-3 text-center">Pagamento processado pela Stripe.</p>
