@@ -69,16 +69,16 @@ export default function RootLayout({
             </a>
             <div className="flex items-center gap-4">
               <a
-                href="/#calculator"
+                href="/marketplace"
                 className="text-sm font-medium text-ink-soft no-underline hover:text-brand-700 transition-colors"
               >
                 Calculadora
               </a>
               <a
-                href="/#pro"
+                href="/planos"
                 className="text-sm font-semibold text-brand-700 no-underline hover:text-brand-900 transition-colors"
               >
-                Modo Pro
+                Planos
               </a>
             </div>
           </nav>
@@ -104,8 +104,13 @@ export default function RootLayout({
                 </h4>
                 <ul className="space-y-2.5 text-sm">
                   <li>
-                    <a href="/#calculator" className="no-underline text-brand-100 hover:text-white transition-colors">
+                    <a href="/marketplace" className="no-underline text-brand-100 hover:text-white transition-colors">
                       Calculadora de Taxas
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/planos" className="no-underline text-brand-100 hover:text-white transition-colors">
+                      Planos Pro
                     </a>
                   </li>
                   <li>

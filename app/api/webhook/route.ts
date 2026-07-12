@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import type Stripe from "stripe";
 import { getStripe } from "@/lib/stripe";
 
-// Stripe requires the raw request body to verify the signature.
 export async function POST(req: Request) {
   const signature = req.headers.get("stripe-signature");
   const secret = process.env.STRIPE_WEBHOOK_SECRET;
@@ -24,14 +23,66 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
   }
 
-  if (event.type === "checkout.session.completed") {
-    const session = event.data.object as Stripe.Checkout.Session;
-    // Pro access is stateless: /pro re-verifies the session id against Stripe
-    // on every visit, so there is no database to update here. The event is
-    // logged for reconciliation.
-    console.log(
-      `[webhook] Modo Pro purchase completed: session=${session.id} amount=${session.amount_total} ${session.currency}`
-    );
+  switch (event.type) {
+    // ── One-time purchases (Modo Pro R$39,90) ──
+    case "checkout.session.completed": {
+      const session = event.data.object as Stripe.Checkout.Session;
+      const mode = session.mode;
+      const product = session.metadata?.product;
+
+      if (mode === "subscription") {
+        console.log(
+          `[webhook] Subscription started: session=${session.id} plan=${session.metadata?.plan} customer=${session.customer}`
+        );
+      } else if (mode === "payment") {
+        console.log(
+          `[webhook] One-time purchase: session=${session.id} amount=${session.amount_total} ${session.currency} product=${product}`
+        );
+      }
+      break;
+    }
+
+    // ── Subscription lifecycle ──
+    case "customer.subscription.created": {
+      const sub = event.data.object as Stripe.Subscription;
+      console.log(
+        `[webhook] Subscription created: sub=${sub.id} customer=${sub.customer} plan=${sub.metadata?.plan}`
+      );
+      break;
+    }
+
+    case "customer.subscription.updated": {
+      const sub = event.data.object as Stripe.Subscription;
+      console.log(
+        `[webhook] Subscription updated: sub=${sub.id} status=${sub.status}`
+      );
+      break;
+    }
+
+    case "customer.subscription.deleted": {
+      const sub = event.data.object as Stripe.Subscription;
+      console.log(
+        `[webhook] Subscription cancelled: sub=${sub.id} customer=${sub.customer}`
+      );
+      break;
+    }
+
+    // ── Payment events for subscriptions ──
+    case "invoice.paid": {
+      const invoice = event.data.object as Stripe.Invoice;
+      console.log(
+        `[webhook] Invoice paid: invoice=${invoice.id} amount=${invoice.amount_paid} subscription=${invoice.subscription}`
+      );
+      break;
+    }
+
+    case "invoice.payment_failed": {
+      const invoice = event.data.object as Stripe.Invoice;
+      console.log(
+        `[webhook] Invoice payment failed: invoice=${invoice.id} subscription=${invoice.subscription}`
+      );
+      break;
+    }
   }
 
   return NextResponse.json({ received: true });

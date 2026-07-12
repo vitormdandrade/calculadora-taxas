@@ -8,7 +8,7 @@ const TOOLS: Tool[] = [
       "Taxas e lucro real no Shopee, Mercado Livre, Amazon e Magalu.",
     price: "Grátis · Pro R$39,90",
     icon: "🧮",
-    href: "/#calculator",
+    href: "/marketplace",
   },
   {
     slug: "rescisao",
