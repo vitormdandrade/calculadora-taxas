@@ -6,11 +6,14 @@ export default function CheckoutButton({
   children,
   className,
   consentLabel,
+  payload,
 }: {
   children: React.ReactNode;
   className?: string;
   /** When set, renders a mandatory consent checkbox that gates the button */
   consentLabel?: string;
+  /** Optional JSON body for /api/checkout (e.g. { product: "rescisao-pdf" }) */
+  payload?: Record<string, unknown>;
 }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -23,7 +26,15 @@ export default function CheckoutButton({
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch("/api/checkout", { method: "POST" });
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        ...(payload
+          ? {
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(payload),
+            }
+          : {}),
+      });
       const data = await res.json();
       if (!res.ok || !data.url) {
         throw new Error(data.error || "Falha ao criar o pagamento");

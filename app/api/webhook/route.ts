@@ -35,9 +35,15 @@ export async function POST(req: Request) {
           `[webhook] Subscription started: session=${session.id} plan=${session.metadata?.plan} customer=${session.customer}`
         );
       } else if (mode === "payment") {
-        console.log(
-          `[webhook] One-time purchase: session=${session.id} amount=${session.amount_total} ${session.currency} product=${product}`
-        );
+        if (product === "rescisao-pdf") {
+          console.log(
+            `[webhook] Rescisão PDF purchase: session=${session.id} amount=${session.amount_total} ${session.currency} email=${session.customer_details?.email}`
+          );
+        } else {
+          console.log(
+            `[webhook] One-time purchase: session=${session.id} amount=${session.amount_total} ${session.currency} product=${product}`
+          );
+        }
       }
       break;
     }

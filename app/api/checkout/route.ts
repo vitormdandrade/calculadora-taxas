@@ -1,5 +1,9 @@
 import { NextResponse } from "next/server";
-import { getStripe, PRO_PRICE_CENTS } from "@/lib/stripe";
+import {
+  getStripe,
+  PRO_PRICE_CENTS,
+  RESCISAO_PDF_PRICE_CENTS,
+} from "@/lib/stripe";
 
 export async function POST(req: Request) {
   try {
@@ -8,6 +12,41 @@ export async function POST(req: Request) {
       req.headers.get("origin") ??
       process.env.NEXT_PUBLIC_SITE_URL ??
       "https://calculataxas.com.br";
+
+    // Body is optional: without it (or with an unknown product) the checkout
+    // defaults to Modo Pro, preserving the original behavior.
+    let product: string | undefined;
+    try {
+      const body = await req.json();
+      product = body?.product;
+    } catch {
+      // no JSON body — Modo Pro
+    }
+
+    if (product === "rescisao-pdf") {
+      const session = await stripe.checkout.sessions.create({
+        mode: "payment",
+        locale: "pt-BR",
+        line_items: [
+          {
+            quantity: 1,
+            price_data: {
+              currency: "brl",
+              unit_amount: RESCISAO_PDF_PRICE_CENTS,
+              product_data: {
+                name: "Relatório PDF — Rescisão Trabalhista",
+                description:
+                  "Relatório completo com memória de cálculo das verbas rescisórias, direitos detalhados e orientações. Estimativa educacional baseada na CLT.",
+              },
+            },
+          },
+        ],
+        success_url: `${origin}/sucesso?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${origin}/rescisao`,
+        metadata: { product: "rescisao-pdf" },
+      });
+      return NextResponse.json({ url: session.url });
+    }
 
     const session = await stripe.checkout.sessions.create({
       mode: "payment",

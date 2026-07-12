@@ -16,3 +16,7 @@ export function getStripe(): Stripe {
 // Modo Pro one-time price in cents (R$39,90)
 export const PRO_PRICE_CENTS = 3990;
 export const PRO_PRICE_LABEL = "R$39,90";
+
+// Rescisão PDF one-time price in cents (R$14,90)
+export const RESCISAO_PDF_PRICE_CENTS = 1490;
+export const RESCISAO_PDF_PRICE_LABEL = "R$14,90";

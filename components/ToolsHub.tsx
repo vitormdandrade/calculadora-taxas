@@ -19,8 +19,7 @@ const TOOLS: Tool[] = [
       "Calcule verbas rescisórias: aviso prévio, 13º, férias, multa FGTS e mais.",
     price: "PDF R$14,90",
     icon: "📋",
-    href: "https://mc-rescisao-trabalhista.vercel.app",
-    external: true,
+    href: "/rescisao",
   },
   {
     slug: "cobranca",

@@ -114,7 +114,7 @@ export default function RootLayout({
                     </a>
                   </li>
                   <li>
-                    <a href="https://mc-rescisao-trabalhista.vercel.app" rel="noopener" className="no-underline text-brand-100 hover:text-white transition-colors">
+                    <a href="/rescisao" className="no-underline text-brand-100 hover:text-white transition-colors">
                       Rescisão Trabalhista
                     </a>
                   </li>
