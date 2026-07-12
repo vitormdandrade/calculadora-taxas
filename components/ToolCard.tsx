@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+export type ToolRisk = "educational" | "simulation" | "legal";
+
 export interface Tool {
   slug: string;
   name: string;
@@ -8,7 +10,23 @@ export interface Tool {
   icon: string;
   href: string;
   external?: boolean;
+  risk: ToolRisk;
 }
+
+const RISK_BADGE: Record<ToolRisk, { label: string; className: string }> = {
+  educational: {
+    label: "🟢 Educacional",
+    className: "bg-brand-50 text-brand-800 border-brand-200",
+  },
+  simulation: {
+    label: "🟡 Simulação",
+    className: "bg-amber-50 text-amber-800 border-amber-200",
+  },
+  legal: {
+    label: "🔴 Documento Legal",
+    className: "bg-red-50 text-red-800 border-red-200",
+  },
+};
 
 export default function ToolCard({ tool }: { tool: Tool }) {
   const Wrapper = tool.external ? "a" : Link;
@@ -32,6 +50,11 @@ export default function ToolCard({ tool }: { tool: Tool }) {
           </p>
         </div>
       </div>
+      <span
+        className={`inline-block text-[11px] font-semibold rounded-full border px-2.5 py-0.5 ${RISK_BADGE[tool.risk].className}`}
+      >
+        {RISK_BADGE[tool.risk].label}
+      </span>
       <div className="flex items-center justify-between mt-2 pt-3 border-t border-brand-900/5">
         <span className="text-sm font-semibold text-brand-600">{tool.price}</span>
         <span className="text-xs text-ink-faint group-hover:text-brand-600 transition-colors">

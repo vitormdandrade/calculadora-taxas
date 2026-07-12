@@ -1,9 +1,25 @@
 import Link from "next/link";
 import ToolsHub from "@/components/ToolsHub";
 
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "ResolveKit",
+  url: "https://resolvekit.com.br",
+  description:
+    "Ferramentas digitais para MEIs, autônomos e pequenos empreendedores brasileiros: calculadoras, geradores de modelos de documentos e consultas.",
+  email: "contato@resolvekit.com.br",
+  areaServed: "BR",
+  knowsLanguage: "pt-BR",
+};
+
 export default function HomePage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+      />
       {/* Hero */}
       <section className="max-w-5xl mx-auto px-5 sm:px-8 pt-12 sm:pt-20 pb-10 text-center">
         <p className="text-xs font-bold uppercase tracking-[0.18em] text-brand-600 mb-4">

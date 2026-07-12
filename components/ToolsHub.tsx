@@ -3,6 +3,7 @@ import ToolCard, { type Tool } from "./ToolCard";
 const TOOLS: Tool[] = [
   {
     slug: "taxas",
+    risk: "educational",
     name: "Calculadora de Taxas",
     tagline:
       "Taxas e lucro real no Shopee, Mercado Livre, Amazon e Magalu.",
@@ -12,6 +13,7 @@ const TOOLS: Tool[] = [
   },
   {
     slug: "rescisao",
+    risk: "simulation",
     name: "Rescisão Trabalhista",
     tagline:
       "Calcule verbas rescisórias: aviso prévio, 13º, férias, multa FGTS e mais.",
@@ -22,6 +24,7 @@ const TOOLS: Tool[] = [
   },
   {
     slug: "cobranca",
+    risk: "legal",
     name: "Carta de Cobrança",
     tagline:
       "Gere cartas de cobrança profissionais para MEIs. Personalize e envie.",
@@ -32,6 +35,7 @@ const TOOLS: Tool[] = [
   },
   {
     slug: "cnpj",
+    risk: "educational",
     name: "CNPJ Radar",
     tagline:
       "Consulte qualquer CNPJ: situação cadastral, sócios, protestos e mais.",
@@ -42,6 +46,7 @@ const TOOLS: Tool[] = [
   },
   {
     slug: "financiamento",
+    risk: "simulation",
     name: "Simulador de Financiamento",
     tagline:
       "Simule parcelas, CET e entrada para financiar seu imóvel. Comparador de taxas.",
@@ -52,6 +57,7 @@ const TOOLS: Tool[] = [
   },
   {
     slug: "contrato-aluguel",
+    risk: "legal",
     name: "Contrato de Aluguel",
     tagline:
       "Gere contratos de locação residencial personalizados em minutos.",
@@ -62,6 +68,7 @@ const TOOLS: Tool[] = [
   },
   {
     slug: "contrato-freela",
+    risk: "legal",
     name: "Contrato para Freela",
     tagline:
       "Contrato de prestação de serviço profissional. Cláusulas prontas.",

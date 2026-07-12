@@ -22,10 +22,28 @@ const faqJsonLd = {
   mainEntity: FAQ.map(({ q, a }) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } })),
 };
 
+const softwareJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "Calculadora de Taxas — ResolveKit",
+  url: "https://resolvekit.com.br/marketplace",
+  applicationCategory: "BusinessApplication",
+  operatingSystem: "Web",
+  inLanguage: "pt-BR",
+  description:
+    "Calculadora educacional de taxas, comissões e lucro real para vendedores do Shopee, Mercado Livre, Amazon e Magalu.",
+  offers: [
+    { "@type": "Offer", price: "0", priceCurrency: "BRL", name: "Cálculo individual" },
+    { "@type": "Offer", price: "39.90", priceCurrency: "BRL", name: "Modo Pro (pagamento único)" },
+  ],
+  publisher: { "@type": "Organization", name: "ResolveKit", url: "https://resolvekit.com.br" },
+};
+
 export default function MarketplacePage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareJsonLd) }} />
 
       <section className="max-w-5xl mx-auto px-5 sm:px-8 pt-8 sm:pt-14 pb-10">
         <p className="text-xs font-bold uppercase tracking-[0.18em] text-brand-600 mb-3">Calculadora de Taxas</p>
