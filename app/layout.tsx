@@ -14,37 +14,39 @@ const body = Instrument_Sans({
   weight: ["400", "500", "600", "700"],
 });
 
-const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://calculataxas.com.br";
+const SITE_URL = "https://resolvekit.com.br";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "Calculadora de Taxas Shopee e Mercado Livre | Calcule seu Lucro",
+  title: "ResolveKit — Ferramentas gratuitas para MEIs e autônomos",
   description:
-    "Calcule taxas, comissões e lucro real nas vendas pelo Shopee, Mercado Livre, Amazon e Magalu. Grátis e sem cadastro.",
+    "Calculadoras, geradores de contratos, cartas de cobrança e consultas CNPJ. Tudo grátis ou com preço justo. Resolva suas pendências em minutos.",
   alternates: { canonical: "/" },
   keywords: [
-    "calculadora de taxas shopee",
-    "calculadora mercado livre",
-    "comissão marketplace",
-    "lucro shopee",
-    "taxa mercado livre 2026",
-    "calculadora de lucro marketplace",
+    "calculadora taxas marketplace",
+    "calculadora rescisão trabalhista",
+    "carta de cobrança MEI",
+    "consulta CNPJ",
+    "simulador financiamento imobiliário",
+    "contrato de aluguel",
+    "contrato prestação serviço",
+    "ferramentas MEI",
+    "resolvekit",
   ],
   openGraph: {
     type: "website",
     url: SITE_URL,
-    siteName: "Calcula Taxas",
+    siteName: "ResolveKit",
     locale: "pt_BR",
-    title: "Calculadora de Taxas Shopee e Mercado Livre | Calcule seu Lucro",
+    title: "ResolveKit — Ferramentas gratuitas para MEIs e autônomos",
     description:
-      "Calcule taxas, comissões e lucro real nas vendas pelo Shopee, Mercado Livre, Amazon e Magalu. Grátis e sem cadastro.",
+      "Calculadoras, geradores de contratos, cartas de cobrança e consultas CNPJ. Tudo grátis ou com preço justo.",
   },
   twitter: {
     card: "summary",
-    title: "Calculadora de Taxas de Marketplace",
+    title: "ResolveKit — Ferramentas para MEI",
     description:
-      "Descubra quanto sobra de verdade em cada venda no Shopee, Mercado Livre, Amazon e Magalu.",
+      "Calculadoras, contratos e consultas para resolver sua vida de autônomo.",
   },
   robots: { index: true, follow: true },
 };
@@ -59,18 +61,26 @@ export default function RootLayout({
           <nav className="max-w-5xl mx-auto flex items-center justify-between px-5 py-5 sm:px-8">
             <a href="/" className="flex items-baseline gap-1.5 no-underline">
               <span className="font-display text-xl font-extrabold tracking-tight text-brand-950">
-                calcula<span className="text-brand-600">taxas</span>
+                resolve<span className="text-brand-600">kit</span>
               </span>
               <span className="hidden sm:inline text-[11px] uppercase tracking-[0.18em] text-ink-faint font-semibold">
-                marketplaces BR
+                .com.br
               </span>
             </a>
-            <a
-              href="/#pro"
-              className="text-sm font-semibold text-brand-700 no-underline hover:text-brand-900 transition-colors"
-            >
-              Modo Pro
-            </a>
+            <div className="flex items-center gap-4">
+              <a
+                href="/#calculator"
+                className="text-sm font-medium text-ink-soft no-underline hover:text-brand-700 transition-colors"
+              >
+                Calculadora
+              </a>
+              <a
+                href="/#pro"
+                className="text-sm font-semibold text-brand-700 no-underline hover:text-brand-900 transition-colors"
+              >
+                Modo Pro
+              </a>
+            </div>
           </nav>
         </header>
 
@@ -81,65 +91,58 @@ export default function RootLayout({
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-10">
               <div className="sm:col-span-1">
                 <p className="font-display text-lg font-bold text-white mb-3">
-                  calcula<span className="text-brand-300">taxas</span>
+                  resolve<span className="text-brand-300">kit</span>
                 </p>
                 <p className="text-sm leading-relaxed text-brand-200/80">
-                  A calculadora de taxas e lucro para quem vende no Shopee,
-                  Mercado Livre, Amazon e Magalu. Grátis, sem cadastro.
+                  Ferramentas gratuitas e acessíveis para MEIs, autônomos e
+                  pequenos empreendedores. Resolva burocracias em minutos.
                 </p>
               </div>
               <div>
                 <h4 className="text-xs font-bold uppercase tracking-widest mb-4 text-brand-300">
-                  Ferramenta
+                  Ferramentas
                 </h4>
                 <ul className="space-y-2.5 text-sm">
                   <li>
-                    <a href="/" className="no-underline text-brand-100 hover:text-white transition-colors">
-                      Calculadora grátis
+                    <a href="/#calculator" className="no-underline text-brand-100 hover:text-white transition-colors">
+                      Calculadora de Taxas
                     </a>
                   </li>
                   <li>
-                    <a href="/#pro" className="no-underline text-brand-100 hover:text-white transition-colors">
-                      Modo Pro — R$39,90
+                    <a href="https://mc-rescisao-trabalhista.vercel.app" rel="noopener" className="no-underline text-brand-100 hover:text-white transition-colors">
+                      Rescisão Trabalhista
                     </a>
                   </li>
                   <li>
-                    <a href="/#faq" className="no-underline text-brand-100 hover:text-white transition-colors">
-                      Perguntas frequentes
+                    <a href="https://mc-carta-cobranca.vercel.app" rel="noopener" className="no-underline text-brand-100 hover:text-white transition-colors">
+                      Carta de Cobrança
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://mc-cnpj-radar.vercel.app" rel="noopener" className="no-underline text-brand-100 hover:text-white transition-colors">
+                      CNPJ Radar
                     </a>
                   </li>
                 </ul>
               </div>
               <div>
                 <h4 className="text-xs font-bold uppercase tracking-widest mb-4 text-brand-300">
-                  Outras ferramentas
+                  Blogs e comparadores
                 </h4>
                 <ul className="space-y-2.5 text-sm">
                   <li>
-                    <a
-                      href="https://oraculodomei.com.br"
-                      rel="noopener"
-                      className="no-underline text-brand-100 hover:text-white transition-colors"
-                    >
+                    <a href="https://oraculodomei.com.br" rel="noopener" className="no-underline text-brand-100 hover:text-white transition-colors">
                       🔮 Oráculo do MEI
                     </a>
                   </li>
                   <li>
-                    <a
-                      href="https://compararsaas.com.br"
-                      rel="noopener"
-                      className="no-underline text-brand-100 hover:text-white transition-colors"
-                    >
-                      Comparador SaaS
+                    <a href="https://compararsaas.com.br" rel="noopener" className="no-underline text-brand-100 hover:text-white transition-colors">
+                      📊 Comparar SaaS
                     </a>
                   </li>
                   <li>
-                    <a
-                      href="https://calculaseguro.com.br"
-                      rel="noopener"
-                      className="no-underline text-brand-100 hover:text-white transition-colors"
-                    >
-                      Calcula Seguro
+                    <a href="https://calculaseguro.com.br" rel="noopener" className="no-underline text-brand-100 hover:text-white transition-colors">
+                      🚗 Calcula Seguro
                     </a>
                   </li>
                 </ul>
@@ -147,10 +150,11 @@ export default function RootLayout({
             </div>
             <div className="mt-12 pt-6 border-t border-white/10 text-xs text-brand-200/60 space-y-2">
               <p>
-                Taxas atualizadas conforme informações oficiais em Julho/2026.
-                Confirme os valores no portal da plataforma.
+                Ferramentas educacionais — não constituem aconselhamento
+                jurídico ou financeiro. Confirme as informações nas fontes
+                oficiais.
               </p>
-              <p>© 2026 Calcula Taxas. Ferramenta educacional — não constitui aconselhamento financeiro.</p>
+              <p>© 2026 ResolveKit. Todos os direitos reservados.</p>
             </div>
           </div>
         </footer>

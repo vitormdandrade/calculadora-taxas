@@ -1,5 +1,6 @@
 import Calculator from "@/components/Calculator";
 import CheckoutButton from "@/components/CheckoutButton";
+import ToolsHub from "@/components/ToolsHub";
 
 const FAQ = [
   {
@@ -65,8 +66,19 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
 
-      {/* ── Hero ── */}
-      <section className="max-w-5xl mx-auto px-5 sm:px-8 pt-8 sm:pt-14 pb-10">
+      {/* ── Tools Hub ── */}
+      <ToolsHub />
+
+      {/* ── Divider ── */}
+      <div className="max-w-5xl mx-auto px-5 sm:px-8">
+        <hr className="border-brand-900/10" />
+      </div>
+
+      {/* ── Calculator Hero ── */}
+      <section id="calculator" className="max-w-5xl mx-auto px-5 sm:px-8 pt-10 sm:pt-16 pb-10">
+        <p className="text-xs font-bold uppercase tracking-[0.18em] text-brand-600 mb-3">
+          Calculadora em destaque
+        </p>
         <h1 className="font-display text-4xl sm:text-5xl font-extrabold tracking-tight text-brand-950 max-w-[22ch] leading-[1.08]">
           Quanto sobra de verdade em cada venda?
         </h1>
