@@ -9,8 +9,9 @@ import {
   type TipoAvisoPrevio,
   type ResultadoRescisao,
 } from "@/lib/rescisao";
-import CheckoutButton from "@/components/CheckoutButton";
+import EmbeddedCheckout from "@/components/EmbeddedCheckout";
 import LegalWarningBR from "@/components/LegalWarningBR";
+import { RESCISAO_PDF_PRICE_CENTS } from "@/lib/stripe";
 
 const CONSENT_LABEL =
   "Entendo que esta é uma estimativa baseada na CLT e que os valores reais podem variar conforme convenção coletiva, adicionais e particularidades do meu caso. Este relatório não substitui a consulta com um advogado ou contador.";
@@ -182,9 +183,15 @@ export default function RescisaoCalculator() {
   const [erro, setErro] = useState<string | null>(null);
   const [resultado, setResultado] = useState<ResultadoRescisao | null>(null);
   const [showLead, setShowLead] = useState(false);
+  const [clientSecret, setClientSecret] = useState<string | null>(null);
+  const [paymentSuccess, setPaymentSuccess] = useState(false);
 
   function handleCalcular() {
     setErro(null);
+    setResultado(null);
+    setShowLead(false);
+    setClientSecret(null);
+    setPaymentSuccess(false);
     const salarioNum = parseSalario(salario);
     if (!salarioNum || salarioNum <= 0) {
       setErro("Informe um salário bruto válido.");
@@ -241,6 +248,22 @@ export default function RescisaoCalculator() {
     "w-full rounded-lg border border-brand-900/15 bg-white px-3.5 py-3 text-base text-ink focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-shadow";
 
   const avisoAplicavel = motivo === "sem_justa_causa";
+
+  async function initiateCheckout() {
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ product: "rescisao-pdf", embedded: true }),
+      });
+      const data = await res.json();
+      if (data.clientSecret) {
+        setClientSecret(data.clientSecret);
+      }
+    } catch {
+      // silently fail — button stays disabled
+    }
+  }
 
   return (
     <section
@@ -531,16 +554,40 @@ export default function RescisaoCalculator() {
                 Memória de cálculo detalhada, direitos explicados verba a verba
                 e orientações para a homologação.
               </p>
-              <CheckoutButton
-                payload={{ product: "rescisao-pdf" }}
-                consentLabel={CONSENT_LABEL}
-                className="w-full rounded-lg bg-brand-400 hover:bg-brand-300 disabled:opacity-60 disabled:cursor-not-allowed text-brand-950 font-bold text-base py-3.5 transition-colors"
-              >
-                Baixar PDF completo — R$14,90
-              </CheckoutButton>
-              <p className="text-xs text-brand-100/50 mt-3 text-center">
-                Pagamento processado pela Stripe.
-              </p>
+              {paymentSuccess ? (
+                <div className="text-center py-4">
+                  <p className="text-4xl mb-3">✅</p>
+                  <p className="font-bold text-lg">Pagamento confirmado!</p>
+                  <p className="text-sm text-brand-100/70 mt-1">
+                    Seu relatório está sendo gerado. Você receberá o PDF por email em instantes.
+                  </p>
+                </div>
+              ) : clientSecret ? (
+                <EmbeddedCheckout
+                  clientSecret={clientSecret}
+                  productLabel="Relatório PDF — Rescisão Trabalhista"
+                  amount={RESCISAO_PDF_PRICE_CENTS}
+                  consentLabel={CONSENT_LABEL}
+                  onSuccess={() => {
+                    setPaymentSuccess(true);
+                    setClientSecret(null);
+                  }}
+                  onCancel={() => setClientSecret(null)}
+                />
+              ) : (
+                <>
+                  <button
+                    type="button"
+                    onClick={initiateCheckout}
+                    className="w-full rounded-lg bg-brand-400 hover:bg-brand-300 disabled:opacity-60 disabled:cursor-not-allowed text-brand-950 font-bold text-base py-3.5 transition-colors"
+                  >
+                    Baixar PDF completo — R$14,90
+                  </button>
+                  <p className="text-xs text-brand-100/50 mt-3 text-center">
+                    Pagamento processado pela Stripe.
+                  </p>
+                </>
+              )}
             </div>
 
             <div className="rounded-xl bg-white border border-brand-900/10 p-5">
